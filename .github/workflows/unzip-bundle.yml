@@ -1,0 +1,20 @@
+name: Unzip bundle
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract bundle and commit site files
+        run: |
+          unzip -o spiritclick-pseo-text-root.zip -d .
+          rm spiritclick-pseo-text-root.zip
+          rm .github/workflows/unzip-bundle.yml
+          git config user.name "SpiritClick"
+          git config user.email "spiritclickteam@gmail.com"
+          git add -A
+          git commit -m "Deploy SpiritClick PSEO site files"
+          git push
