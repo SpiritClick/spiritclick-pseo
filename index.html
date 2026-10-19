@@ -1,54 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SpiritClick Guides: Tarot Meanings, Compatibility, and Questions Answered</title>
-<meta name="description" content="Tarot card meanings for all 78 cards, zodiac compatibility for all 78 sign pairs, and real relationship questions answered plainly.">
-<style>:root{color-scheme:dark}
-body{margin:0;background:#0B0B0C;color:#F4EDDE;font-family:Georgia,'Times New Roman',serif;line-height:1.65}
-.wrap{max-width:760px;margin:0 auto;padding:24px 18px 60px}
-a{color:#C6A15B}
-h1{font-size:1.9em;line-height:1.25;margin:.4em 0}
-h2{color:#C6A15B;font-size:1.25em;margin-top:1.6em}
-header.site{border-bottom:1px solid #C6A15B;padding-bottom:10px;margin-bottom:8px}
-header.site .brand{font-size:1.3em;letter-spacing:.08em;color:#F4EDDE;text-decoration:none}
-.kicker{color:#C6A15B;text-transform:uppercase;letter-spacing:.15em;font-size:.75em}
-.cta{border:1px solid #C6A15B;border-radius:10px;padding:16px 18px;margin:22px 0;background:#121214}
-.cta .btn{display:inline-block;background:#C6A15B;color:#0B0B0C;padding:10px 18px;border-radius:6px;text-decoration:none;font-weight:bold;margin-top:8px}
-.keys{color:#C6A15B;font-style:italic}
-footer{border-top:1px solid #333;margin-top:40px;padding-top:14px;font-size:.85em;color:#bdb49e}
-ul.tight li{margin:.3em 0}
-.meta{color:#bdb49e;font-size:.9em}</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moon Sign Calculator -- SpiritClick</title>
+<meta name="description" content="Find your Moon sign free. Your Moon is your inner weather -- the part of you that answers at 2 a.m.">
+<style>
+  :root{--bg:#0B0B0C;--ink:#F4EDDE;--gold:#C6A15B;--card:#151517;--line:#3a332a;--soft:#b8ad93;}
+  @media (prefers-color-scheme: light){:root{--bg:#F4EDDE;--ink:#17130B;--card:#FFFDF6;--line:#D8C9A3;--soft:#6d6046;}}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif;padding:40px 18px 56px;}
+  .wrap{max-width:520px;margin:0 auto;text-align:center;}
+  .ring{width:84px;height:84px;border:2px solid var(--gold);border-radius:50%;margin:0 auto 14px;position:relative;animation:glow 9s ease-in-out infinite;}
+  .ring::before{content:"";position:absolute;inset:-2px;border:2px solid var(--gold);border-radius:50%;opacity:0;animation:rip 9s ease-out infinite;}
+  .ring::after{content:"";position:absolute;top:16px;right:14px;width:9px;height:9px;background:var(--gold);border-radius:50%;}
+  @keyframes rip{0%{transform:scale(1);opacity:.55}18%{transform:scale(1.45);opacity:0}100%{transform:scale(1.45);opacity:0}}
+  @keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(198,161,91,0)}50%{box-shadow:0 0 22px 2px rgba(198,161,91,.35)}}
+  @media (prefers-reduced-motion: reduce){.ring,.ring::before{animation:none}}
+  .moon{width:44px;height:44px;border-radius:50%;background:var(--gold);margin:18px auto 0;position:relative;overflow:hidden;}
+  .moon::after{content:"";position:absolute;top:-4px;left:12px;width:40px;height:40px;border-radius:50%;background:var(--bg);transition:background .3s;}
+  h1{font-size:31px;font-weight:normal;letter-spacing:.5px;margin-top:12px;}
+  .tag{color:var(--gold);font-style:italic;margin:8px 0 6px;font-size:16px;line-height:1.45;}
+  .sub{color:var(--soft);font-size:14px;line-height:1.5;margin-bottom:26px;}
+  form{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 16px;text-align:left;}
+  label{display:block;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin:0 0 6px;}
+  input,select{width:100%;padding:11px 10px;font-size:16px;font-family:inherit;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:8px;margin-bottom:16px;}
+  button.go{width:100%;background:var(--gold);color:#17130B;border:none;border-radius:10px;padding:14px;font-size:17px;font-family:inherit;cursor:pointer;}
+  .fine{font-size:12px;color:var(--soft);line-height:1.5;margin-top:12px;text-align:center;}
+  #out{display:none;margin-top:26px;}
+  .sign{font-size:40px;margin:6px 0 2px;}
+  .deg{color:var(--gold);font-style:italic;font-size:15px;}
+  .flav{font-size:17px;line-height:1.55;margin:14px auto 4px;max-width:430px;}
+  .sunline{color:var(--soft);font-size:14px;margin-top:10px;}
+  .cusp{display:none;margin:14px auto 0;max-width:430px;font-size:14px;line-height:1.5;border:1px dashed var(--gold);border-radius:10px;padding:10px 12px;}
+  a.cta{display:block;background:var(--card);border:1px solid var(--gold);color:var(--ink);text-decoration:none;padding:16px 14px;margin:22px 0 0;border-radius:10px;font-size:18px;}
+  a.cta small{display:block;color:var(--gold);font-size:13px;margin-top:4px;font-style:italic;}
+  .wm{margin-top:34px;color:var(--gold);font-size:15px;letter-spacing:1px;}
+  .wm a{color:var(--gold);text-decoration:none;}
+</style>
 </head>
 <body>
 <div class="wrap">
-<header class="site"><a class="brand" href="https://spiritclick.github.io/spiritclick-pseo/">SpiritClick Guides</a></header>
-<p class="kicker">Guides</p>
-<h1>SpiritClick Guides</h1>
-<p>Plain-language guides built from the SpiritClick tarot meanings library and the questions people actually bring to readings: card meanings, zodiac compatibility, sign behaviour, and long-tail relationship and heartbreak questions, answered one at a time.</p>
+  <div class="ring"></div>
+  <h1>Moon Sign Calculator</h1>
+  <p class="tag">Your Sun sign is who you are becoming. Your Moon sign is who answers at 2 a.m.</p>
+  <p class="sub">Enter the day you were born. The Moon moves fast -- about one sign every two and a half days -- so your birth time sharpens the answer.</p>
 
-<div class="cta">
-<p class="kicker">Advisors are online now</p>
-<p>Live text chat with real advisors. First answer free. Pay per answer, never per minute.</p>
-<p>Bring this exact question to a live advisor and get a complete first
-answer, free, in private text chat. After the free answer it is pay per
-answer, never per minute, so the clock is never part of the conversation.</p>
-<p><a class="btn" href="https://spiritclick.com/advisors?online=1&src=pseo-hub">Ask your first question free</a></p>
-</div>
-<h2>Sections</h2><ul class='tight'><li><a href='tarot/'>Tarot card meanings</a>: all 78 cards, upright, reversed, in love, and at work.</li><li><a href='compatibility/'>Zodiac compatibility</a>: all 78 sun-sign pairs, with the strengths and the friction.</li><li><a href='signs/'>Sign questions</a>: why each sign goes quiet, comes back, and loves the way it does.</li><li><a href='questions/'>Questions, answered</a>: real long-tail questions from readings, answered from the cards.</li></ul>
+  <form id="f">
+    <label for="d">Birth date</label>
+    <input type="date" id="d" required>
+    <label for="t">Birth time (if you know it)</label>
+    <input type="time" id="t" value="12:00">
+    <label for="z">Time zone where you were born</label>
+    <select id="z">
+      <option value="-8">Pacific (UTC-8)</option>
+      <option value="-7">Mountain (UTC-7)</option>
+      <option value="-6" selected>Central (UTC-6)</option>
+      <option value="-5">Eastern (UTC-5)</option>
+      <option value="0">London (UTC+0)</option>
+      <option value="1">Europe (UTC+1)</option>
+      <option value="5.5">India (UTC+5:30)</option>
+      <option value="10">Sydney (UTC+10)</option>
+      <option value="0">Not sure / use UTC</option>
+    </select>
+    <button class="go" type="submit">Show my Moon sign</button>
+    <p class="fine">Free, instant, and nothing you type leaves this page. For fun and reflection -- an exact chart also uses your birthplace, and that is what a reader is for.</p>
+  </form>
 
-<div class="cta">
-<p class="kicker">How paying works</p>
-<p>There is no checkout maze here. You start on the SpiritClick advisors
-page, your first answer is free, and if you want more you buy answer
-credits there and pay per answer, never per minute.</p>
-<p><a class="btn" href="https://spiritclick.com/advisors?online=1&src=pseo-hub">See who is online now</a></p>
+  <div id="out">
+    <div class="moon"></div>
+    <p class="deg">Your Moon is in</p>
+    <p class="sign" id="sign"></p>
+    <p class="deg" id="deg"></p>
+    <p class="flav" id="flav"></p>
+    <p class="sunline" id="sunline"></p>
+    <p class="cusp" id="cusp">You were born near a cusp, where the Moon changes signs. The exact hour decides it -- and a reader can pin it down properly.</p>
+    <a class="cta" href="https://spiritclick.com/advisors?online=1&amp;src=gh-mooncalc">Ask a Psychic -- First Answer Free<small>Real advisors, online now. Pay per answer, never per minute.</small></a>
+  </div>
+
+  <p class="wm"><a href="https://spiritclick.github.io/spiritclick-pseo/links/">spiritclick.com</a></p>
 </div>
-<footer>
-<p>For entertainment only. Nothing here is medical, legal, or financial advice, and no reading can guarantee what another person will do.</p>
-<p><a href="https://spiritclick.github.io/spiritclick-pseo/">All guides</a> | <a href="https://spiritclick.com/advisors?online=1&src=pseo-hub">SpiritClick live advisors</a></p>
-</footer>
-</div>
+<script>
+var SIGNS=['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius','Capricorn','Aquarius','Pisces'];
+var FLAV={
+'Aries':'You feel things at full volume, then you are done. Fast heart, short fuse, honest tears.',
+'Taurus':'Comfort is not a luxury to you, it is the whole point. Slow to trust, slower to leave.',
+'Gemini':'Your feelings have subtitles. You process by talking, and the 2 a.m. version of you is the honest one.',
+'Cancer':'You remember everything, especially the tone of voice. Home is a person before it is a place.',
+'Leo':'You need to be seen by the people you love. Quietly dramatic, loudly loyal.',
+'Virgo':'You show love by fixing things. Your worry is just care with nowhere to sit.',
+'Libra':'You feel off when the room is off. Harmony is not vanity for you, it is oxygen.',
+'Scorpio':'You feel in basements nobody else visits. All or nothing, and you can tell the difference instantly.',
+'Sagittarius':'Your feelings need a horizon. Tell you the truth and you can handle almost anything.',
+'Capricorn':'You cry efficiently and build anyway. The soft part is in there -- it just keeps a schedule.',
+'Aquarius':'You feel one step to the side of everyone. Weird is not a phase, it is the wiring.',
+'Pisces':'You absorb the weather of every room. Boundaries are your love language to yourself.'};
+function rev(x){x=x%360;return x<0?x+360:x;}
+function rad(x){return x*Math.PI/180;}
+function positions(y,mo,da,hoursUTC){
+  var a=Math.floor((14-mo)/12), yy=y+4800-a, mm=mo+12*a-3;
+  var jdn=da+Math.floor((153*mm+2)/5)+365*yy+Math.floor(yy/4)-Math.floor(yy/100)+Math.floor(yy/400)-32045;
+  var jd=jdn+(hoursUTC-12)/24, d=jd-2451543.5;
+  var Ms=rev(356.0470+0.9856002585*d), ws=282.9404+4.70935e-5*d, es=0.016709-1.151e-9*d;
+  var Es=Ms+es*(180/Math.PI)*Math.sin(rad(Ms))*(1+es*Math.cos(rad(Ms)));
+  var xvs=Math.cos(rad(Es))-es, yvs=Math.sin(rad(Es))*Math.sqrt(1-es*es);
+  var sunlon=rev(Math.atan2(yvs,xvs)*180/Math.PI+ws);
+  var N=rev(125.1228-0.0529538083*d), inc=5.1454, w=rev(318.0634+0.1643573223*d);
+  var am=60.2666, e=0.054900, M=rev(115.3654+13.0649929509*d), E=M, k;
+  for(k=0;k<12;k++){E=E-(E-e*(180/Math.PI)*Math.sin(rad(E))-M)/(1-e*Math.cos(rad(E)));}
+  var xv=am*(Math.cos(rad(E))-e), yv=am*Math.sin(rad(E))*Math.sqrt(1-e*e);
+  var v=Math.atan2(yv,xv)*180/Math.PI, r=Math.sqrt(xv*xv+yv*yv);
+  var xh=r*(Math.cos(rad(N))*Math.cos(rad(v+w))-Math.sin(rad(N))*Math.sin(rad(v+w))*Math.cos(rad(inc)));
+  var yh=r*(Math.sin(rad(N))*Math.cos(rad(v+w))+Math.cos(rad(N))*Math.sin(rad(v+w))*Math.cos(rad(inc)));
+  var lon=rev(Math.atan2(yh,xh)*180/Math.PI);
+  var D=rev(lon-sunlon), F=rev(93.2722+13.0650000591*d);
+  var corr=-1.274*Math.sin(rad(M-2*D))+0.658*Math.sin(rad(2*D))-0.186*Math.sin(rad(Ms))
+    -0.059*Math.sin(rad(2*M-2*D))-0.057*Math.sin(rad(M-2*D+Ms))+0.053*Math.sin(rad(M+2*D))
+    +0.046*Math.sin(rad(2*D-Ms))+0.041*Math.sin(rad(M-Ms))-0.035*Math.sin(rad(D))
+    -0.031*Math.sin(rad(M+Ms))-0.015*Math.sin(rad(2*F-2*D))+0.011*Math.sin(rad(M-4*D));
+  return {moon:rev(lon+corr), sun:sunlon};
+}
+document.getElementById('f').addEventListener('submit',function(ev){
+  ev.preventDefault();
+  var dv=document.getElementById('d').value; if(!dv) return;
+  var p=dv.split('-'), y=+p[0], mo=+p[1], da=+p[2];
+  var tv=document.getElementById('t').value||'12:00', tp=tv.split(':'), hh=+tp[0], mi=+tp[1]||0;
+  var off=parseFloat(document.getElementById('z').value);
+  var res=positions(y,mo,da,(hh+mi/60)-off);
+  var idx=Math.floor(res.moon/30), deg=res.moon-idx*30;
+  var sidx=Math.floor(res.sun/30);
+  document.getElementById('sign').textContent=SIGNS[idx]+' Moon';
+  document.getElementById('deg').textContent='at '+deg.toFixed(1)+' degrees of '+SIGNS[idx];
+  document.getElementById('flav').textContent=FLAV[SIGNS[idx]];
+  document.getElementById('sunline').textContent='Your Sun: '+SIGNS[sidx]+' -- the Moon is the weather inside it.';
+  document.getElementById('cusp').style.display=(deg<1.2||deg>28.8)?'block':'none';
+  var out=document.getElementById('out'); out.style.display='block';
+  out.scrollIntoView({behavior:'smooth',block:'center'});
+});
+</script>
 </body>
 </html>
