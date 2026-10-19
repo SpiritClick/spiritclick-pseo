@@ -1,0 +1,24 @@
+name: Unzip bundle
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract bundle and commit site files
+        run: |
+          set -x
+          unzip -o pseo-bundle-20261019.zip -d bundle-tmp
+          ls bundle-tmp
+          cp -a bundle-tmp/cloudflare-bundle/. .
+          rm -rf bundle-tmp pseo-bundle-20261019.zip
+          rm .github/workflows/unzip-bundle.yml
+          git config user.name "SpiritClick"
+          git config user.email "spiritclickteam@gmail.com"
+          git add -A
+          git status --short | head -30
+          git commit -m "Deploy SpiritClick PSEO site files"
+          git push
